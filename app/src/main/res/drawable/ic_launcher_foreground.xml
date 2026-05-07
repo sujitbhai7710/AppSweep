@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <!-- Broom icon foreground - representing AppSweep (cleaning apps) -->
+    <!-- White circle background for the icon -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30m-24,0a24,24 0,1 1,48 0a24,24 0,1 1,-48 0"/>
+    <!-- Broom handle -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M52,38L56,38L56,54L52,54Z"/>
+    <!-- Broom head -->
+    <path
+        android:fillColor="#3B82F6"
+        android:pathData="M46,54L62,54L60,62L48,62Z"/>
+    <!-- Broom bristles -->
+    <path
+        android:fillColor="#2563EB"
+        android:pathData="M48,62L50,68L52,62M54,62L54,68L56,62M58,62L60,68L62,62"/>
+    <!-- Sparkle effects -->
+    <path
+        android:fillColor="#8B5CF6"
+        android:pathData="M38,36l2,-4l2,4l-2,4zM68,32l2,-4l2,4l-2,4zM72,44l1.5,-3l1.5,3l-1.5,3z"/>
+</vector>
