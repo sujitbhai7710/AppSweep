@@ -71,7 +71,6 @@ fun FilterChipsRow(
                 border = FilterChipDefaults.filterChipBorder(
                     borderColor = if (isSelected) Blue500 else Gray300,
                     selectedBorderColor = Blue500,
-                    enabled = true,
                     selected = isSelected
                 )
             )
