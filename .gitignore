@@ -29,7 +29,6 @@ build/
 .DS_Store
 Thumbs.db
 
-# Secrets
+# Secrets (keep our release keystore in repo for CI builds)
 *.keystore
-*.jks
-keystore.properties
+!appsweep-release.jks
