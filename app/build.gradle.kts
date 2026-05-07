@@ -39,13 +39,8 @@ android {
             storeFile = file(keystoreProperties["storeFile"] as String? ?: "appsweep-release.jks")
             storePassword = keystoreProperties["storePassword"] as String? ?: "appsweep123"
         }
-        getByName("debug") {
-            // Debug uses the default debug keystore (auto-signed by Android)
-            storeFile = file("debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-        }
+        // Debug signing uses the default Android debug keystore automatically
+        // No need to configure it - Gradle generates ~/.android/debug.keystore
     }
 
     buildTypes {
@@ -60,7 +55,7 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            // Debug is auto-signed with the default debug keystore
         }
     }
 
