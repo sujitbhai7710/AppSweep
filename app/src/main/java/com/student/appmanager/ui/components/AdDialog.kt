@@ -2,6 +2,10 @@ package com.student.appmanager.ui.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.CheckCircle
+import androidx.compose.material.icons.filled.Lock
+import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -66,7 +70,7 @@ fun AdRewardDialog(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Icon(
-                                imageVector = androidx.compose.material.icons.Icons.Default.CheckCircle,
+                                imageVector = Icons.Filled.CheckCircle,
                                 contentDescription = null,
                                 tint = Green500,
                                 modifier = Modifier.size(32.dp)
@@ -107,7 +111,7 @@ fun AdRewardDialog(
                             horizontalAlignment = Alignment.CenterHorizontally
                         ) {
                             Icon(
-                                imageVector = androidx.compose.material.icons.Icons.Default.Lock,
+                                imageVector = Icons.Filled.Lock,
                                 contentDescription = null,
                                 tint = Blue500,
                                 modifier = Modifier.size(32.dp)
@@ -144,7 +148,7 @@ fun AdRewardDialog(
                 contentPadding = PaddingValues(horizontal = 20.dp, vertical = 10.dp)
             ) {
                 Icon(
-                    imageVector = androidx.compose.material.icons.Icons.Default.PlayArrow,
+                    imageVector = Icons.Filled.PlayArrow,
                     contentDescription = null,
                     modifier = Modifier.size(18.dp)
                 )

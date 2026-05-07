@@ -4,8 +4,12 @@ import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Sort
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.student.appmanager.data.model.FilterOption
@@ -31,6 +35,7 @@ import com.student.appmanager.ui.theme.*
  * @param onFilterSelected Called when a filter chip is tapped
  * @param modifier Optional modifier
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FilterChipsRow(
     selectedFilter: FilterOption,
@@ -116,7 +121,7 @@ fun SortDropdown(
             contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
         ) {
             Icon(
-                imageVector = androidx.compose.material.icons.Icons.Default.Sort,
+                imageVector = Icons.Filled.Sort,
                 contentDescription = null,
                 modifier = Modifier.size(16.dp)
             )
@@ -129,14 +134,12 @@ fun SortDropdown(
 
         DropdownMenu(
             expanded = isExpanded,
-            onDismissRequest = { onExpandChange(false) },
-            shape = RoundedCornerShape(12.dp),
-            containerColor = White
+            onDismissRequest = { onExpandChange(false) }
         ) {
             com.student.appmanager.data.model.SortOption.values().forEach { sort ->
                 DropdownMenuItem(
                     text = {
-                        Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+                        Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
                                 text = sort.displayName,
                                 style = MaterialTheme.typography.bodyMedium,
@@ -151,7 +154,7 @@ fun SortDropdown(
                     leadingIcon = {
                         if (sort == selectedSort) {
                             Icon(
-                                imageVector = androidx.compose.material.icons.Icons.Default.Check,
+                                imageVector = Icons.Filled.Check,
                                 contentDescription = null,
                                 tint = Blue500,
                                 modifier = Modifier.size(18.dp)

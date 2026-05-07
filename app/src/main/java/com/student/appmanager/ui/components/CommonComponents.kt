@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DeleteSweep
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -140,7 +141,7 @@ fun EmptyState(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
-            imageVector = androidx.compose.material.icons.Icons.Default.SearchOff,
+            imageVector = Icons.Filled.Search,
             contentDescription = null,
             tint = Gray300,
             modifier = Modifier.size(64.dp)

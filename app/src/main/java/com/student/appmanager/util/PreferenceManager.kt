@@ -2,7 +2,7 @@ package com.student.appmanager.util
 
 import android.content.Context
 import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
+import android.preference.PreferenceManager
 
 /**
  * Manages app preferences using Android's SharedPreferences.
@@ -20,9 +20,7 @@ import androidx.preference.PreferenceManager
  */
 class PreferenceManager(private val context: Context) {
 
-    private val prefs: SharedPreferences by lazy {
-        PreferenceManager.getDefaultSharedPreferences(context)
-    }
+    private val prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 
     // ---- Sort & Filter Preferences ----
 
