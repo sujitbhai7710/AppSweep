@@ -20,17 +20,15 @@ class AppSweepApp : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        // Initialize Google Mobile Ads SDK in background
-        // This must be done before any ad requests
-        Thread {
-            try {
-                MobileAds.initialize(this) { initializationStatus ->
-                    // Ads SDK initialized successfully
-                    // In production, you'd log the status for debugging
-                }
-            } catch (e: Exception) {
-                // Non-critical failure - ads are optional functionality
+        // Initialize Google Mobile Ads SDK on the main thread as recommended by Google.
+        // The initialization is async internally, so it won't block the main thread.
+        try {
+            MobileAds.initialize(this) { initializationStatus ->
+                // Ads SDK initialized successfully
+                // In production, you'd log the status for debugging
             }
-        }.start()
+        } catch (e: Exception) {
+            // Non-critical failure - ads are optional functionality
+        }
     }
 }

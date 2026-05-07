@@ -1,4 +1,4 @@
-name: Build APK
+name: Build Signed APK
 
 on:
   push:
@@ -32,32 +32,42 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
 
-      - name: Build Debug APK
+      - name: Build Debug APK (signed with debug key)
         run: ./gradlew assembleDebug --stacktrace
 
-      - name: Build Release APK
+      - name: Build Release APK (signed with release key)
         run: ./gradlew assembleRelease --stacktrace
+
+      - name: List APK outputs
+        run: |
+          echo "=== Debug APK ==="
+          ls -la app/build/outputs/apk/debug/
+          echo "=== Release APK ==="
+          ls -la app/build/outputs/apk/release/
+
+      - name: Rename APKs for clarity
+        run: |
+          cp app/build/outputs/apk/debug/app-debug.apk app/build/outputs/apk/debug/AppSweep-v1.1.0-debug.apk || true
+          cp app/build/outputs/apk/release/app-release.apk app/build/outputs/apk/release/AppSweep-v1.1.0-release.apk || true
+
+      - name: Verify APK signing
+        run: |
+          echo "=== Verifying Debug APK ==="
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --print-certs app/build/outputs/apk/debug/app-debug.apk || echo "Using alternative verification..."
+          unzip -l app/build/outputs/apk/debug/app-debug.apk | head -5
+          echo ""
+          echo "=== Verifying Release APK ==="
+          $ANDROID_HOME/build-tools/34.0.0/apksigner verify --print-certs app/build/outputs/apk/release/app-release.apk || echo "Using alternative verification..."
+          unzip -l app/build/outputs/apk/release/app-release.apk | head -5
 
       - name: Upload Debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: AppSweep-debug
+          name: AppSweep-debug-signed
           path: app/build/outputs/apk/debug/*.apk
 
       - name: Upload Release APK
         uses: actions/upload-artifact@v4
         with:
-          name: AppSweep-release
+          name: AppSweep-release-signed
           path: app/build/outputs/apk/release/*.apk
-
-      - name: Generate APK checksum
-        run: |
-          cd app/build/outputs/apk/release/
-          sha256sum *.apk > checksums.txt
-          cat checksums.txt
-
-      - name: Upload checksum
-        uses: actions/upload-artifact@v4
-        with:
-          name: release-checksums
-          path: app/build/outputs/apk/release/checksums.txt

@@ -1,7 +1,17 @@
+import java.util.Properties
+import java.io.FileInputStream
+
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
     id("org.jetbrains.kotlin.plugin.parcelize")
+}
+
+// Load keystore properties from file
+val keystorePropertiesFile = rootProject.file("keystore.properties")
+val keystoreProperties = Properties()
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(FileInputStream(keystorePropertiesFile))
 }
 
 android {
@@ -12,8 +22,8 @@ android {
         applicationId = "com.student.appmanager"
         minSdk = 24
         targetSdk = 34
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
@@ -21,10 +31,28 @@ android {
         }
     }
 
+    // Signing configuration - REQUIRED for APK installation
+    signingConfigs {
+        create("release") {
+            keyAlias = keystoreProperties["keyAlias"] as String? ?: "appsweep"
+            keyPassword = keystoreProperties["keyPassword"] as String? ?: "appsweep123"
+            storeFile = file(keystoreProperties["storeFile"] as String? ?: "appsweep-release.jks")
+            storePassword = keystoreProperties["storePassword"] as String? ?: "appsweep123"
+        }
+        getByName("debug") {
+            // Debug uses the default debug keystore (auto-signed by Android)
+            storeFile = file("debug.keystore")
+            storePassword = "android"
+            keyAlias = "androiddebugkey"
+            keyPassword = "android"
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
+            isMinifyEnabled = false  // Disable minification for reliability
+            isShrinkResources = false // Disable shrinking for reliability
+            signingConfig = signingConfigs.getByName("release")
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -32,8 +60,7 @@ android {
         }
         debug {
             isMinifyEnabled = false
-            applicationIdSuffix = ".debug"
-            versionNameSuffix = "-debug"
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
 

@@ -25,7 +25,7 @@ import java.util.Locale
  * The repository abstracts the data source from the ViewModel,
  * making it easy to swap data sources or add caching later.
  */
-class AppRepository(private val context: Context) {
+class AppRepository(context: Context) {
 
     private val packageManager: PackageManager = context.packageManager
 

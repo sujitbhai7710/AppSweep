@@ -136,7 +136,7 @@ fun DetailScreen(
     viewModel: DetailViewModel = viewModel(
         factory = DetailViewModel.Factory(
             packageName = packageName,
-            repository = AppRepository(LocalContext.current)
+            repository = AppRepository(LocalContext.current.applicationContext)
         )
     )
 ) {

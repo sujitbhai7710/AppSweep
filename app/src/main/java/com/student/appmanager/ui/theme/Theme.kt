@@ -1,15 +1,9 @@
 package com.student.appmanager.ui.theme
 
-import android.app.Activity
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalView
-import androidx.core.view.WindowCompat
 
 /**
  * AppSweep Light Color Scheme
@@ -93,19 +87,9 @@ fun AppSweepTheme(
     // We force light theme - AppSweep is designed for a bright, clean look
     val colorScheme = AppSweepLightColorScheme
 
-    // Set status bar and navigation bar colors to match our theme
-    val view = LocalView.current
-    if (!view.isInEditMode) {
-        SideEffect {
-            val window = (view.context as Activity).window
-            window.statusBarColor = White.toArgb()
-            window.navigationBarColor = White.toArgb()
-
-            // Use dark icons on light status bar
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
-            WindowCompat.getInsetsController(window, view).isAppearanceLightNavigationBars = true
-        }
-    }
+    // Note: System bar colors are handled by enableEdgeToEdge() in MainActivity.
+    // Do NOT set window.statusBarColor / window.navigationBarColor here,
+    // as that would override the transparent bars set by enableEdgeToEdge().
 
     MaterialTheme(
         colorScheme = colorScheme,

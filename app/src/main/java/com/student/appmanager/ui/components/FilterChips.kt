@@ -49,7 +49,7 @@ fun FilterChipsRow(
             .padding(horizontal = 16.dp, vertical = 4.dp),
         horizontalArrangement = Arrangement.spacedBy(8.dp)
     ) {
-        FilterOption.values().forEach { filter ->
+        FilterOption.entries.forEach { filter ->
             val isSelected = filter == selectedFilter
 
             FilterChip(
@@ -130,7 +130,7 @@ fun SortDropdown(
             expanded = isExpanded,
             onDismissRequest = { onExpandChange(false) }
         ) {
-            com.student.appmanager.data.model.SortOption.values().forEach { sort ->
+            com.student.appmanager.data.model.SortOption.entries.forEach { sort ->
                 DropdownMenuItem(
                     text = {
                         Row(verticalAlignment = Alignment.CenterVertically) {

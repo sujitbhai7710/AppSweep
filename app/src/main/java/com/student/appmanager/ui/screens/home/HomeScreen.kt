@@ -76,14 +76,16 @@ fun HomeScreen(
         viewModel.refreshApps()
     }
 
+    // Shared AdManager instance for UI display (state is managed in ViewModel)
+    val adManagerInstance = remember { com.student.appmanager.util.AdManager() }
+
     // Ad reward dialog
     if (showAdDialog) {
         AdRewardDialog(
             onWatchAd = { viewModel.onWatchAd() },
             onDismiss = { viewModel.onAdDialogDismiss() },
             hasActiveAccess = uiState.adRewardState.isAccessValid,
-            remainingTime = com.student.appmanager.util.AdManager()
-                .getFormattedRemainingTime()
+            remainingTime = adManagerInstance.getFormattedRemainingTime()
         )
     }
 

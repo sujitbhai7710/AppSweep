@@ -5,6 +5,7 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
+import android.os.Build
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import com.student.appmanager.data.model.*
@@ -44,7 +45,7 @@ import kotlinx.coroutines.launch
  */
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val repository = AppRepository(application)
+    private val repository = AppRepository(application.applicationContext)
     private val adManager = AdManager()
     private val prefs = PreferenceManager(application)
 
@@ -113,7 +114,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             addAction(Intent.ACTION_PACKAGE_REPLACED)
             addDataScheme("package")
         }
-        application.registerReceiver(packageChangeReceiver, filter)
+        // On API 33+ (Android 13+), we must specify RECEIVER_EXPORTED or RECEIVER_NOT_EXPORTED.
+        // Package change broadcasts come from the system, so the receiver must be EXPORTED.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            application.registerReceiver(packageChangeReceiver, filter, Context.RECEIVER_EXPORTED)
+        } else {
+            application.registerReceiver(packageChangeReceiver, filter)
+        }
     }
 
     /**
