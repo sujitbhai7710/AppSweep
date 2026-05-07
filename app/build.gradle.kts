@@ -36,7 +36,7 @@ android {
         create("release") {
             keyAlias = keystoreProperties["keyAlias"] as String? ?: "appsweep"
             keyPassword = keystoreProperties["keyPassword"] as String? ?: "appsweep123"
-            storeFile = file(keystoreProperties["storeFile"] as String? ?: "appsweep-release.jks")
+            storeFile = rootProject.file(keystoreProperties["storeFile"] as String? ?: "appsweep-release.jks")
             storePassword = keystoreProperties["storePassword"] as String? ?: "appsweep123"
         }
         // Debug signing uses the default Android debug keystore automatically
